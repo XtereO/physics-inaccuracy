@@ -1,22 +1,4 @@
-def sum_list(l):
-    res = 0
-    for i in l:
-        res += i
-    return res
-
-
-def map(l, func):
-    res = []
-    for i in l:
-        res.append(func(i))
-    return res
-
-
-def cross_multiple(x_list, y_list):
-    res = []
-    for i in range(len(y_list)):
-        res.append(x_list[i]*y_list[i])
-    return res
+from helpers import square_dif, sum_list, cross_multiple, map
 
 
 def get_a(x_list, y_list, b):
@@ -35,36 +17,14 @@ def get_devitation(x_list, y_list, a, b):
     return res
 
 
-def main():
-    x_list = [
-        2.5,
-        6,
-        8.2,
-        21.2,
-        22, 
-        23.5,
-        24.5,
-        26.5
-    ]
-    y_list = [
-        1.58,
-        3.58,
-        5.58,
-        8.50,
-        9.58,
-        11.58,
-        13.58,
-        15.58
-    ]
-
-    b = get_b(x_list, y_list)
-    a = get_a(x_list, y_list, b)
-    deviatation = get_devitation(x_list, y_list, a, b)
-
-    print("a is equal to", a)
-    print("b is equal to", b)
-    print("deviatation is equal to", deviatation)
+def get_devitation_b(x_list, y_list, b):
+    s_y = square_dif(y_list)
+    s_x = square_dif(x_list)
+    n = len(y_list)
+    return 2*((s_y/s_x - b**2)/(n-2))**0.5
 
 
-if __name__ == "__main__":
-    main()
+def get_devitation_a(x_list, dev_b):
+    s_x = square_dif(x_list)
+    mid_x = sum_list(x_list)/len(x_list)
+    return dev_b*(s_x + mid_x**2)**0.5
